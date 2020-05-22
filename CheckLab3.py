@@ -1,4 +1,26 @@
 #!/usr/bin/env python3
+'''
+Name: CheckLab3.py
+Updated: September 19, 2019 by Raymond Chan
+Reasons: (1) for Python version 3.6.8
+         (2) add report header with user and system information
+         (3) update description for each unit test
+
+Updated: September 25, 2019 by Raymond Chan
+Reasons: (1) add Linux system version to report header
+
+Usage:
+Check all sections for the Lab 3
+./CheckLab3 -f -v
+Check a specific lab section
+./CheckLab3 -f -v lab3x
+
+Description:
+This script is used to give students more feedback and hints while working
+on Lab 3. Python scripts for Lab 3 and this script should be in the same
+directory. All the Python scripts must use the correct naming scheme.
+
+'''
 
 import subprocess
 import unittest
@@ -6,6 +28,8 @@ import sys
 import os
 import hashlib
 import urllib.request
+import socket
+import time
 
 #Import student files, do not give errors if they don't exist
 #try:
@@ -18,45 +42,59 @@ import urllib.request
 #    """Could not find lab3c.py"""
 
 class lab3a(unittest.TestCase):
-    """All test cases for lab3b - functions & arguments"""
+    """All test cases for lab3a - functions & arguments"""
 
     def test_0(self):
-        """[Lab 3] - [Investigation 1] - [Part 1] - Functions - Test for file creation: ./lab3a.py"""
-        error_output = 'your file cannot be found(HINT: make sure you AND your file are in the correct directory)'
+        """[Lab 3] - [Investigation 1] - [Part 4] - Functions - Test for file creation: ./lab3a.py"""
+        error_output = 'your file cannot be found (HINT: make sure you AND your file are in the correct directory)'
         self.assertTrue(os.path.exists('./lab3a.py'), msg=error_output)
 
-    def test_a(self):
-        """[Lab 3] - [Investigation 1] - [Part 1] - Functions - Test for errors running: ./lab3a.py"""
+    def test_1(self):
+        """[Lab 3] - [Investigation 1] - [Part 4] - Functions - Test for errors running: ./lab3a.py"""
         # Run students program
         p = subprocess.Popen(['/usr/bin/python3', './lab3a.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a no zero exit status
         return_code = p.wait()
-        error_output = 'your program exited with a error(HINT: make sure you copied the script exactly!)'
+        error_output = 'your program exited with a error (HINT: make sure you copied the script exactly!)'
         self.assertEqual(return_code, 0, msg=error_output)
 
-    def test_a1(self):
-        """[Lab 3] - [Investigation 1] - [Part 1] - Functions - Test for correct shebang line: ./lab3a.py"""
+    def test_2(self):
+        """[Lab 3] - [Investigation 1] - [Part 4] - Functions - Test for correct shebang line: ./lab3a.py"""
         lab_file = open('./lab3a.py')
         first_line = lab_file.readline()
         lab_file.close()
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
     
+    @unittest.skipIf(os.getlogin() == 'travis', "ignoring id check")
+    def test_3_author_id(self):
+        """[Lab 3] - [Investigation 1] - [Part 4] - Script Author ID - match system ID lab3a.py"""
+        lab_file = open('./lab3a.py')
+        all_lines = lab_file.readlines()
+        lab_file.close()
+        author_id = "not set"
+        error_output = "Author ID not set in your script"
+        for each_line in all_lines:
+            if 'Author ID:' in each_line:
+                author_id = each_line.strip().split(":")[1].replace(' ','')
+                error_output = "Author ID does not match user name running the CheckLab3 script"
+        user_id = os.getlogin()
+        self.assertEqual(author_id, user_id, msg=error_output)
 
-    def test_b_function_return_text_value(self):
-        """[Lab 3] - [Investigation 1] - [Part 1] - Functions - function print_out_text() has correct output"""
+    def test_4_function_return_text_value(self):
+        """[Lab 3] - [Investigation 1] - [Part 4] - Functions - function print_out_text() has correct output"""
         # Try to import before testing
         try:
             import lab3a as lab3aStudent
         except:
-            self.fail('lab3a.py contains errors(HINT: make sure you copied the script exactly!')
+            self.fail('lab3a.py contains errors (HINT: make sure you copied the script exactly!')
         expected_output = 'Good Morning Terry'
-        error_output = 'lab3a.py print_out_text() has wrong output(HINT: make sure you copied the script exactly!'
+        error_output = 'lab3a.py print_out_text() has wrong output (HINT: make sure you copied the script exactly!'
         self.assertEqual(lab3aStudent.return_text_value(), expected_output, msg=error_output)
     
-    def test_c_function_return_number_value(self):
-        """[Lab 3] - [Investigation 1] - [Part 1] - Functions - function print_out_text() has correct output"""
+    def test_5_function_return_number_value(self):
+        """[Lab 3] - [Investigation 1] - [Part 4] - Functions - function print_out_text() has correct output"""
         # Try to import before testing
         try:
             import lab3a as lab3aStudent
@@ -72,26 +110,26 @@ class lab3b(unittest.TestCase):
 
     def test_0(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - Functions - Test for file creation: ./lab3b.py"""
-        error_output = 'your file cannot be found(HINT: make sure you AND your file are in the correct directory)'
+        error_output = 'your file cannot be found (HINT: make sure you AND your file are in the correct directory)'
         self.assertTrue(os.path.exists('./lab3b.py'), msg=error_output)
 
-    def test_a(self):
+    def test_1(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - Functions - Test for errors running: ./lab3b.py"""
         # Run students program
         p = subprocess.Popen(['/usr/bin/python3', './lab3b.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a no zero exit status
         return_code = p.wait()
-        error_output = 'your program exited with a error(HINT: make sure you copied the script exactly!)'
+        error_output = 'your program exited with a error (HINT: make sure you copied the script exactly!)'
         self.assertEqual(return_code, 0, msg=error_output)
 
-    def test_a_function_sum(self):
+    def test_4_function_sum(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments - function sum_numbers() fails without 2 arguments"""
         with self.assertRaises(Exception) as context:
             import lab3b as lab3bStudent
             lab3bStudent.sum_numbers()
 
-    def test_a1(self):
+    def test_2(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - Functions - Test for correct shebang line: ./lab3b.py"""
         lab_file = open('./lab3b.py')
         first_line = lab_file.readline()
@@ -99,20 +137,34 @@ class lab3b(unittest.TestCase):
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
 
+    @unittest.skipIf(os.getlogin() == 'travis', "ignoring id check")
+    def test_3_author_id(self):
+        """[Lab 3] - [Investigation 2] - [Part 1] - Script Author ID - match system ID lab3b.py"""
+        lab_file = open('./lab3b.py')
+        all_lines = lab_file.readlines()
+        lab_file.close()
+        author_id = "not set"
+        error_output = "Author ID not set in your script"
+        for each_line in all_lines:
+            if 'Author ID:' in each_line:
+                author_id = each_line.strip().split(":")[1].replace(' ','')
+                error_output = "Author ID does not match user name running the CheckLab3 script"
+        user_id = os.getlogin()
+        self.assertEqual(author_id, user_id, msg=error_output)
 
-    def test_b_function_subtract(self):
+    def test_5_function_subtract(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments - function subtract_numbers() fails without 2 arguments"""
         with self.assertRaises(Exception) as context:
             import lab3b as lab3bStudent
             lab3bStudent.subtract_numbers()
 
-    def test_c_function_multiply(self):
+    def test_6_function_multiply(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments - function multiply_numbers() fails without 2 arguments"""
         with self.assertRaises(Exception) as context:
             import lab3b as lab3bStudent
             lab3bStudent.multiply_numbers()
 
-    def test_d_function_sum_output(self):
+    def test_7_function_sum_output(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments - function add_numbers() adds correctly"""
         # Try to import before testing
         try:
@@ -122,7 +174,7 @@ class lab3b(unittest.TestCase):
         error_output = 'problem adding(HINT: sum_numbers(10, 5)'
         self.assertEqual(str(lab3bStudent.sum_numbers(10, 5)), '15', msg=error_output)
 
-    def test_e_function_subtract_output(self):
+    def test_8_function_subtract_output(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments - function subtract_numbers() subtracts correctly"""
         # Try to import before testing
         try:
@@ -132,7 +184,7 @@ class lab3b(unittest.TestCase):
         error_output = 'problem subtracting(HINT: subtract_numbers(10, 5)'
         self.assertEqual(str(lab3bStudent.subtract_numbers(10, 5)), '5', msg=error_output)
 
-    def test_f_function_multiply_output(self):
+    def test_9_function_multiply_output(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments - function multiply_numbers() multiplies correctly"""
         # Try to import before testing
         try:
@@ -150,7 +202,7 @@ class lab3c(unittest.TestCase):
         error_output = 'your file cannot be found(HINT: make sure you AND your file are in the correct directory)'
         self.assertTrue(os.path.exists('./lab3c.py'), msg=error_output)
 
-    def test_a(self):
+    def test_1(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - Functions - Test for errors running: ./lab3c.py"""
         # Run students program
         p = subprocess.Popen(['/usr/bin/python3', './lab3c.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -160,13 +212,27 @@ class lab3c(unittest.TestCase):
         error_output = 'your program exited with a error(HINT: make sure you copied the script exactly!)'
         self.assertEqual(return_code, 0, msg=error_output)
 
+    @unittest.skipIf(os.getlogin() == 'travis', "ignoring id check")
+    def test_3_author_id(self):
+        """[Lab 3] - [Investigation 2] - [Part 1] - Script Author ID - match system ID lab3c.py"""
+        lab_file = open('./lab3c.py')
+        all_lines = lab_file.readlines()
+        lab_file.close()
+        author_id = "not set"
+        error_output = "Author ID not set in your script"
+        for each_line in all_lines:
+            if 'Author ID:' in each_line:
+                author_id = each_line.strip().split(":")[1].replace(' ','')
+                error_output = "Author ID does not match user name running the CheckLab3 script"
+        user_id = os.getlogin()
+        self.assertEqual(author_id, user_id, msg=error_output)
 
-    def test_a_function_sum(self):
+    def test_4_function_sum(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() fails with 0 arguments"""
         with self.assertRaises(Exception) as context:
             lab3cStudent.operate()
     
-    def test_a1(self):
+    def test_2(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - Functions - Test for correct shebang line: ./lab3X.py"""
         lab_file = open('./lab3c.py')
         first_line = lab_file.readline()
@@ -175,17 +241,17 @@ class lab3c(unittest.TestCase):
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
 
 
-    def test_b_function_subtract(self):
+    def test_5_function_subtract(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() fails with 1 arguments"""
         with self.assertRaises(Exception) as context:
             lab3cStudent.operate(10)
 
-    def test_c_function_multiply(self):
+    def test_6_function_multiply(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() fails with 2 arguments"""
         with self.assertRaises(Exception) as context:
             lab3cStudent.operate(10, 5)
 
-    def test_d_function_sum_output(self):
+    def test_7_function_sum_output(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() adds correctly test 1"""
         # Try to import before testing
         try:
@@ -195,7 +261,7 @@ class lab3c(unittest.TestCase):
         error_output = 'problem adding(HINT: operate(10, 5, \'add\')'
         self.assertEqual(str(lab3cStudent.operate(10, 5, 'add')), '15', msg=error_output)
 
-    def test_e_function_subtract_output(self):
+    def test_8_function_subtract_output(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() subtracts correctly test 1"""
         # Try to import before testing
         try:
@@ -205,7 +271,7 @@ class lab3c(unittest.TestCase):
         error_output = 'problem subtracting(HINT: operate(10, 5, \'subtract\')'
         self.assertEqual(str(lab3cStudent.operate(10, 5, 'subtract')), '5', msg=error_output)
 
-    def test_f_function_multiply_output(self):
+    def test_9_function_multiply_output(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() multiplies correctly test 1"""
         # Try to import before testing
         try:
@@ -215,7 +281,7 @@ class lab3c(unittest.TestCase):
         error_output = 'problem multiplying(HINT: operate(10, 5, \'multiply\')'
         self.assertEqual(str(lab3cStudent.operate(10, 5, 'multiply')), '50', msg=error_output)
     
-    def test_g_function_sum_output(self):
+    def test_a_function_sum_output(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() adds correctly test 2"""
         # Try to import before testing
         try:
@@ -225,7 +291,7 @@ class lab3c(unittest.TestCase):
         error_output = 'problem adding(HINT: operate(5, 50, \'add\')'
         self.assertEqual(str(lab3cStudent.operate(5, 50, 'add')), '55', msg=error_output)
 
-    def test_h_function_subtract_output(self):
+    def test_b_function_subtract_output(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() subtracts correctly test 2"""
         # Try to import before testing
         try:
@@ -235,7 +301,7 @@ class lab3c(unittest.TestCase):
         error_output = 'problem subtracting(HINT: operate(5, 50, \'subtract\')'
         self.assertEqual(str(lab3cStudent.operate(5, 50, 'subtract')), '-45', msg=error_output)
 
-    def test_i_function_multiply_output(self):
+    def test_c_function_multiply_output(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() multiplies correctly test 2"""
         # Try to import before testing
         try:
@@ -245,7 +311,7 @@ class lab3c(unittest.TestCase):
         error_output = 'problem multiplying(HINT: operate(5, 50, \'multiply\')'
         self.assertEqual(str(lab3cStudent.operate(5, 50, 'multiply')), '250', msg=error_output)
     
-    def test_j_function_multiply_output(self):
+    def test_d_function_multiply_output(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() fails with division"""
         # Try to import before testing
         try:
@@ -270,9 +336,9 @@ class lab3d(unittest.TestCase):
         # Run students program
         p = subprocess.Popen(['/usr/bin/python3', './lab3d.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
-        # Fail test if process returns a no zero exit status
+        # Fail test if process returns a non zero exit status
         return_code = p.wait()
-        error_output = 'your program exited with a error(HINT: make sure you copied the script exactly!)'
+        error_output = 'your program exited with a error (HINT: make sure you copied the script exactly!)'
         self.assertEqual(return_code, 0, msg=error_output)
 
     def test_a_function_free_space(self):
@@ -281,20 +347,20 @@ class lab3d(unittest.TestCase):
         try:
             import lab3d as lab3dStudent
         except:
-            self.fail('lab3d.py contains errors(HINT: run the function and fix errors')
+            self.fail('lab3d.py contains errors (HINT: run the function and fix errors')
         # Test function
         try:
-            lab3dStudent.free_space()
+            dummy = lab3dStudent.free_space()
         except:
-            self.fail('free_space() function contains errors(HINT: run the function and fix errors')
+            self.fail('free_space() function contains errors (HINT: run the function and fix errors')
     
     def test_a1(self):
         """[Lab 3] - [Investigation 2] - [Part 2] - Functions - Test for correct shebang line: ./lab3d.py"""
         lab_file = open('./lab3d.py')
-        first_line = lab_file.readline()
+        first_line = lab_file.readline().strip()
         lab_file.close()
-        error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
-        self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
+        error_output = 'your program does not have a shebang line (HINT: what should the first line contain)'
+        self.assertEqual(first_line, '#!/usr/bin/env python3', msg=error_output)
 
     
     def test_b_function_correct_output_free_space(self):
@@ -303,13 +369,13 @@ class lab3d(unittest.TestCase):
         try:
             import lab3d as lab3dStudent
         except:
-            self.fail('lab3d.py contains errors(HINT: run the function and fix errors')
+            self.fail('lab3d.py contains errors (HINT: run the function and fix errors')
         p = subprocess.Popen(["df -h | grep '/$' | awk '{print $4}'"], 
                             stdout=subprocess.PIPE, stdin=subprocess.PIPE, 
                             stderr=subprocess.PIPE, shell=True)
         stdout, err = p.communicate()
         try:
-            error_output = 'wrong output(HINT: show root directory free space only)'
+            error_output = 'wrong output (HINT: show root directory free space only)'
             self.assertEqual(stdout.decode('utf-8').strip(), 
                             lab3dStudent.free_space().decode('utf-8').strip(), msg=error_output)
         except AttributeError:
@@ -509,13 +575,13 @@ def CheckForUpdates():
         lab_name = 'CheckLab3.py'
         lab_num = 'lab3'
         print('Checking for updates...')
-        if ChecksumLatest(url='https://raw.githubusercontent.com/Seneca-CDOT/ops435/master/LabCheckScripts/' + lab_name) != ChecksumLocal(filename='./' + lab_name):
+        if ChecksumLatest(url='https://ict.senecacollege.ca/~raymond.chan/ops435/labs/LabCheckScripts/' + lab_name) != ChecksumLocal(filename='./' + lab_name):
             print()
             print(' There is a update available for ' + lab_name + ' please consider updating:')
             print(' cd ~/ops435/' + lab_num + '/')
             print(' pwd  #   <-- i.e. confirm that you are in the correct directory')
             print(' rm ' + lab_name)
-            print(' ls ' + lab_name + ' || wget https://raw.githubusercontent.com/Seneca-CDOT/ops435/master/LabCheckScripts/' + lab_name)
+            print(' ls ' + lab_name + ' || wget https://ict.senecacollege.ca/~raymond.chan/ops435/labs/LabCheckScripts/' + lab_name)
             print()
             return
         print('Running latest version...')
@@ -526,9 +592,26 @@ def CheckForUpdates():
         print('Skipping updates...')
         return
 
+def displayReportHeader():
+    report_heading = 'OPS435 Lab Report - System Information for running '+sys.argv[0]
+    print(report_heading)
+    print(len(report_heading) * '=')
+    print('    User login name:', os.getlogin())
+    print('    Linux system name:', socket.gethostname())
+    print('    Linux system version:', os.popen('cat /etc/redhat-release').read().strip())
+    print('    Python executable:',sys.executable)
+    print('    Python version: ',sys.version_info.major,sys.version_info.minor,sys.version_info.micro,sep='')
+    print('    OS Platform:',sys.platform)
+    print('    Working Directory:',os.getcwd())
+    print('    Start at:',time.asctime())
+    print(len(report_heading) * '=')
+    return
+
 if __name__ == '__main__':
-    #CheckForUpdates()
-    #wait = input('Press ENTER to run the Lab Check...')
+    # CheckForUpdates()
+    # wait = input('Press ENTER to run the Lab Check...')
+    if len(sys.argv) == 3:
+         displayReportHeader()
     unittest.main()
 
 
