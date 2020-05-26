@@ -22,6 +22,17 @@ python3 ./CheckLab3.py -f -v
 python3 ./CheckLab3.py -f -v &> ~/ops435/lab3/laboutput.txt
 ```
 
+In addition to the files you started with, your repository should include the
+following files you have created:
+
+- [ ] lab3a.py
+- [ ] lab3b.py
+- [ ] lab3c.py
+- [ ] lab3d.py
+- [ ] lab3e.py
+- [ ] lab3f.py
+- [ ] laboutput.txt 
+
 3. Commit and push (upload) your lab work:
 ```bash
 git add *
