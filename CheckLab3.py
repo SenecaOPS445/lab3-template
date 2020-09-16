@@ -67,7 +67,7 @@ class lab3a(unittest.TestCase):
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
     
-    @unittest.skipIf(os.getlogin() == 'travis', "ignoring id check")
+    @unittest.skip( "ignoring id check")
     def test_3_author_id(self):
         """[Lab 3] - [Investigation 1] - [Part 4] - Script Author ID - match system ID lab3a.py"""
         lab_file = open('./lab3a.py')
@@ -137,7 +137,7 @@ class lab3b(unittest.TestCase):
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
 
-    @unittest.skipIf(os.getlogin() == 'travis', "ignoring id check")
+    @unittest.skip( "ignoring id check")
     def test_3_author_id(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - Script Author ID - match system ID lab3b.py"""
         lab_file = open('./lab3b.py')
@@ -212,7 +212,7 @@ class lab3c(unittest.TestCase):
         error_output = 'your program exited with a error(HINT: make sure you copied the script exactly!)'
         self.assertEqual(return_code, 0, msg=error_output)
 
-    @unittest.skipIf(os.getlogin() == 'travis', "ignoring id check")
+    @unittest.skip( "ignoring id check")
     def test_3_author_id(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - Script Author ID - match system ID lab3c.py"""
         lab_file = open('./lab3c.py')
