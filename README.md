@@ -1,25 +1,25 @@
 # Setup
 This will download Lab 3 locally, allowing you to work on your scripts and upload (push) them back up to GitHub.
 
-1. Clone your lab repository into your ~/ops435/lab3 directory using SSH:
+1. Clone your lab repository into your ~/ops445/lab3 directory using SSH:
 ```bash
-git clone git@github.com:ops435/lab-3-yourgithubusername.git ~/ops435/lab3/
+git clone git@github.com:ops445/lab-3-yourgithubusername.git ~/ops445/lab3/
 ```
 2. Copy your backed-up work into your new GitHub-linked directory:
 ```bash
-cp ~/old_ops435/lab3/* ~/ops435/lab3/
+cp ~/old_ops445/lab3/* ~/ops445/lab3/
 ```
 
 # Submission
 1. Run the checking script. Make sure you identify and correct any and all errors in your scripts:
 ```bash
-cd ~/ops435/lab3/
+cd ~/ops445/lab3/
 pwd #confirm that you are in the right directory
 python3 ./CheckLab3.py -f -v
 ```
 2. Redirect the checking script output into *laboutput.txt*:
 ```bash
-python3 ./CheckLab3.py -f -v &> ~/ops435/lab3/laboutput.txt
+python3 ./CheckLab3.py -f -v &> ~/ops445/lab3/laboutput.txt
 ```
 
 In addition to the files you started with, your repository should include the
