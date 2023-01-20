@@ -3,7 +3,7 @@ This will download Lab 3 locally, allowing you to work on your scripts and uploa
 
 1. Clone your lab repository into your ~/ops445/lab3 directory using SSH:
 ```bash
-git clone git@github.com:ops435/lab-3-yourgithubusername.git ~/ops445/lab3/
+git clone <ssh link> ~/ops445/lab3/
 ```
 2. Copy your backed-up work into your new GitHub-linked directory:
 ```bash
