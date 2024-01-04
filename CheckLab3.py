@@ -67,21 +67,6 @@ class lab3a(unittest.TestCase):
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
     
-    @unittest.skip( "ignoring id check")
-    def test_3_author_id(self):
-        """[Lab 3] - [Investigation 1] - [Part 4] - Script Author ID - match system ID lab3a.py"""
-        lab_file = open('./lab3a.py')
-        all_lines = lab_file.readlines()
-        lab_file.close()
-        author_id = "not set"
-        error_output = "Author ID not set in your script"
-        for each_line in all_lines:
-            if 'Author ID:' in each_line:
-                author_id = each_line.strip().split(":")[1].replace(' ','')
-                error_output = "Author ID does not match user name running the CheckLab3 script"
-        user_id = os.getlogin()
-        self.assertEqual(author_id, user_id, msg=error_output)
-
     def test_4_function_return_text_value(self):
         """[Lab 3] - [Investigation 1] - [Part 4] - Functions - function print_out_text() has correct output"""
         # Try to import before testing
@@ -136,21 +121,6 @@ class lab3b(unittest.TestCase):
         lab_file.close()
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
-
-    @unittest.skip( "ignoring id check")
-    def test_3_author_id(self):
-        """[Lab 3] - [Investigation 2] - [Part 1] - Script Author ID - match system ID lab3b.py"""
-        lab_file = open('./lab3b.py')
-        all_lines = lab_file.readlines()
-        lab_file.close()
-        author_id = "not set"
-        error_output = "Author ID not set in your script"
-        for each_line in all_lines:
-            if 'Author ID:' in each_line:
-                author_id = each_line.strip().split(":")[1].replace(' ','')
-                error_output = "Author ID does not match user name running the CheckLab3 script"
-        user_id = os.getlogin()
-        self.assertEqual(author_id, user_id, msg=error_output)
 
     def test_5_function_subtract(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments - function subtract_numbers() fails without 2 arguments"""
@@ -211,21 +181,6 @@ class lab3c(unittest.TestCase):
         return_code = p.wait()
         error_output = 'your program exited with a error(HINT: make sure you copied the script exactly!)'
         self.assertEqual(return_code, 0, msg=error_output)
-
-    @unittest.skip( "ignoring id check")
-    def test_3_author_id(self):
-        """[Lab 3] - [Investigation 2] - [Part 1] - Script Author ID - match system ID lab3c.py"""
-        lab_file = open('./lab3c.py')
-        all_lines = lab_file.readlines()
-        lab_file.close()
-        author_id = "not set"
-        error_output = "Author ID not set in your script"
-        for each_line in all_lines:
-            if 'Author ID:' in each_line:
-                author_id = each_line.strip().split(":")[1].replace(' ','')
-                error_output = "Author ID does not match user name running the CheckLab3 script"
-        user_id = os.getlogin()
-        self.assertEqual(author_id, user_id, msg=error_output)
 
     def test_4_function_sum(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - functions & arguments & logic - function operate() fails with 0 arguments"""
