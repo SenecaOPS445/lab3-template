@@ -52,7 +52,7 @@ class lab3a(unittest.TestCase):
     def test_1(self):
         """[Lab 3] - [Investigation 1] - [Part 4] - Functions - Test for errors running: ./lab3a.py"""
         # Run students program
-        p = subprocess.Popen(['/usr/bin/python3', './lab3a.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen([sys.executable, './lab3a.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a no zero exit status
         return_code = p.wait()
@@ -101,7 +101,7 @@ class lab3b(unittest.TestCase):
     def test_1(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - Functions - Test for errors running: ./lab3b.py"""
         # Run students program
-        p = subprocess.Popen(['/usr/bin/python3', './lab3b.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen([sys.executable, './lab3b.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a no zero exit status
         return_code = p.wait()
@@ -175,7 +175,7 @@ class lab3c(unittest.TestCase):
     def test_1(self):
         """[Lab 3] - [Investigation 2] - [Part 1] - Functions - Test for errors running: ./lab3c.py"""
         # Run students program
-        p = subprocess.Popen(['/usr/bin/python3', './lab3c.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen([sys.executable, './lab3c.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a no zero exit status
         return_code = p.wait()
@@ -289,7 +289,7 @@ class lab3d(unittest.TestCase):
     def test_a(self):
         """[Lab 3] - [Investigation 2] - [Part 2] - Functions - Test for errors running: ./lab3d.py"""
         # Run students program
-        p = subprocess.Popen(['/usr/bin/python3', './lab3d.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen([sys.executable, './lab3d.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a non zero exit status
         return_code = p.wait()
@@ -375,7 +375,7 @@ class lab3e(unittest.TestCase):
     def test_a(self):
         """[Lab 3] - [Investigation 3] - [Part 1] - Functions - Test for errors running: ./lab3e.py"""
         # Run students program
-        p = subprocess.Popen(['/usr/bin/python3', './lab3e.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen([sys.executable, './lab3e.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a no zero exit status
         return_code = p.wait()
@@ -443,7 +443,7 @@ class lab3f(unittest.TestCase):
     def test_a(self):
         """[Lab 3] - [Investigation 3] - [Part 3] - functions & lists & for loops - Test for errors running: ./lab3f.py"""
         # Run students program
-        p = subprocess.Popen(['/usr/bin/python3', './lab3f.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen([sys.executable, './lab3f.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a no zero exit status
         return_code = p.wait()
